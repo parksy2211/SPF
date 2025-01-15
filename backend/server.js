@@ -1,15 +1,25 @@
 const express = require('express');
 const multer = require('multer');
 const mongoose = require('mongoose');
+const cors = require('cors');
+const fs = require('fs');
+const path = require('path');
 const app = express();
 const port = 3000;
 
+app.use(cors());
 app.use(express.json());
 
 mongoose.connect('mongodb://localhost:27017/social-platform', {
     useNewUrlParser: true,
     useUnifiedTopology: true,
 });
+
+// 파일 저장 디렉토리 생성
+const uploadDir = path.join(__dirname, 'uploads');
+if (!fs.existsSync(uploadDir)) {
+    fs.mkdirSync(uploadDir);
+}
 
 const userSchema = new mongoose.Schema({
     username: String,
