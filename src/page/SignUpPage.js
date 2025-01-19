@@ -29,7 +29,7 @@ const SignupPage = () => {
         });
 
         try {
-            await axios.post('/api/register', formDataToSend, {
+            await axios.post('http://localhost:3000/api/register', formDataToSend, {
                 headers: { 'Content-Type': 'multipart/form-data' },
             });
             alert('회원가입 성공!');
