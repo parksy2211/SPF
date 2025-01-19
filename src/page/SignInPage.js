@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import axios from 'axios';
 
-const LoginPage = () => {
+const LoginPage = ({ onLoginSuccess }) => {
     const [formData, setFormData] = useState({
         email: '',
         password: '',
@@ -18,7 +18,7 @@ const LoginPage = () => {
         try {
             const response = await axios.post('http://localhost:3000/api/login', formData);
             alert('로그인 성공!');
-            console.log(response.data);
+            onLoginSuccess(response.data.data); // 로그인 성공 시 사용자 정보를 전달
         } catch (error) {
             console.error('로그인 실패:', error);
             alert('로그인 실패. 이메일과 비밀번호를 확인해주세요.');
