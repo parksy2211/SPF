@@ -8,20 +8,20 @@ const LoginPage = () => {
     });
 
     const handleChange = (e) => {
-        setFormData({
-            ...formData,
-            [e.target.name]: e.target.value,
-        });
+        const { name, value } = e.target;
+        setFormData({ ...formData, [name]: value });
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+
         try {
-            await axios.post('/api/login', formData);
+            const response = await axios.post('/api/login', formData);
             alert('로그인 성공!');
-            // 메인 페이지로 리디렉션
+            console.log(response.data);
         } catch (error) {
             console.error('로그인 실패:', error);
+            alert('로그인 실패. 이메일과 비밀번호를 확인해주세요.');
         }
     };
 
@@ -41,9 +41,7 @@ const LoginPage = () => {
                 onChange={handleChange}
                 style={styles.input}
             />
-            <button type="submit" style={styles.button}>
-                Login
-            </button>
+            <button type="submit" style={styles.button}>Login</button>
         </form>
     );
 };

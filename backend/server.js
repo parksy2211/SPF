@@ -67,6 +67,21 @@ app.post('/api/register', upload.single('profileImg'), async (req, res) => {
     }
 });
 
+app.post('/api/login', async (req, res) => {
+    const { email, password } = req.body;
+
+    try {
+        const user = await User.findOne({ email, password });
+        if (user) {
+            res.json({ message: 'Login successful', data: user });
+        } else {
+            res.status(401).json({ message: 'Invalid email or password' });
+        }
+    } catch (error) {
+        res.status(500).json({ message: 'Error logging in user', error });
+    }
+});
+
 app.listen(port, () => {
     console.log(`Server is running on http://localhost:${port}`);
 });
