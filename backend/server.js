@@ -33,6 +33,22 @@ const userSchema = new mongoose.Schema({
 
 const User = mongoose.model('User', userSchema);
 
+////////////////////////
+const followSchema = new mongoose.Schema({
+    userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+    followId: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+});
+
+const Follow = mongoose.model('Follow', followSchema);
+
+const relationshipScoreSchema = new mongoose.Schema({
+    userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+    followId: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+    score: Number,
+});
+///////////////////////
+
+
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
         cb(null, 'uploads/');
@@ -81,6 +97,70 @@ app.post('/api/login', async (req, res) => {
         res.status(500).json({ message: 'Error logging in user', error });
     }
 });
+
+
+///////////////////////////////////////
+// 팔로우 API
+app.post('/api/follow', async (req, res) => {
+    const { userId, followId } = req.body;
+
+    const newFollow = new Follow({
+        userId,
+        followId,
+    });
+
+    try {
+        await newFollow.save();
+        res.status(201).send('Followed successfully');
+    } catch (error) {
+        res.status(500).send('Error following user');
+    }
+});
+
+// 관계지수 계산 API
+app.post('/api/calculateRelationshipScore', async (req, res) => {
+    const { userId, followId } = req.body;
+
+    // 관계지수 계산 로직 (예: 공통 관심사, 대화 빈도 등)
+    const score = Math.floor(Math.random() * 100); // 예시: 랜덤 점수
+
+    const newRelationshipScore = new RelationshipScore({
+        userId,
+        followId,
+        score,
+    });
+
+    try {
+        await newRelationshipScore.save();
+        res.status(201).send({ score });
+    } catch (error) {
+        res.status(500).send('Error calculating relationship score');
+    }
+});
+
+// 유저 검색 API
+app.get('/api/searchUsers', async (req, res) => {
+    const { query } = req.query;
+
+    try {
+        const users = await User.find({ username: new RegExp(query, 'i') });
+        res.status(200).send(users);
+    } catch (error) {
+        res.status(500).send('Error searching users');
+    }
+});
+
+// 유저 정보 API
+app.get('/api/users/:id', async (req, res) => {
+    try {
+        const user = await User.findById(req.params.id);
+        res.status(200).send(user);
+    } catch (error) {
+        res.status(500).send('Error fetching user info');
+    }
+});
+//////////////////////////////
+
 
 app.listen(port, () => {
     console.log(`Server is running on http://localhost:${port}`);
