@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const MyPage = ({ user }) => {
     return (
@@ -15,6 +16,9 @@ const MyPage = ({ user }) => {
                     <img src={`http://localhost:3000/uploads/${user.profileImg}`} alt="Profile" style={styles.image} />
                 </div>
             )}
+            <Link to="/relationship">
+                <button style={styles.button}>Go to Relationship Page</button>
+            </Link>
         </div>
     );
 };
@@ -31,6 +35,17 @@ const styles = {
         height: '100px',
         borderRadius: '50%',
         marginTop: '10px',
+    },
+    button: {
+        width: '100%',
+        padding: '10px',
+        fontSize: '16px',
+        borderRadius: '5px',
+        border: 'none',
+        backgroundColor: '#007BFF',
+        color: 'white',
+        cursor: 'pointer',
+        marginTop: '20px',
     },
 };
 
