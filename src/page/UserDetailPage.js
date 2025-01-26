@@ -10,7 +10,7 @@ const UserDetailPage = ({ user }) => {
     useEffect(() => {
         const fetchUserInfo = async () => {
             try {
-                const response = await axios.get(`http://localhost:3001/api/users/${id}`);
+                const response = await axios.get(`http://localhost:3000/api/users/${id}`);
                 setUserInfo(response.data);
             } catch (error) {
                 console.error('Error fetching user info:', error);
@@ -19,7 +19,7 @@ const UserDetailPage = ({ user }) => {
 
         const fetchRelationshipScore = async () => {
             try {
-                const response = await axios.post('http://localhost:3001/api/calculateRelationshipScore', {
+                const response = await axios.post('http://localhost:3000/api/calculateRelationshipScore', {
                     userId: user._id,
                     followId: id,
                 });
@@ -47,7 +47,7 @@ const UserDetailPage = ({ user }) => {
             {userInfo.profileImg && (
                 <div>
                     <strong>Profile Image:</strong>
-                    <img src={`http://localhost:3001/uploads/${userInfo.profileImg}`} alt="Profile" style={styles.image} />
+                    <img src={`http://localhost:3000/uploads/${userInfo.profileImg}`} alt="Profile" style={styles.image} />
                 </div>
             )}
             {relationshipScore !== null && <p><strong>Relationship Score:</strong> {relationshipScore}</p>}

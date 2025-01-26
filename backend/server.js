@@ -33,7 +33,6 @@ const userSchema = new mongoose.Schema({
 
 const User = mongoose.model('User', userSchema);
 
-////////////////////////
 const followSchema = new mongoose.Schema({
     userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
     followId: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
@@ -46,8 +45,8 @@ const relationshipScoreSchema = new mongoose.Schema({
     followId: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
     score: Number,
 });
-///////////////////////
 
+const RelationshipScore = mongoose.model('RelationshipScore', relationshipScoreSchema);
 
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
@@ -98,8 +97,6 @@ app.post('/api/login', async (req, res) => {
     }
 });
 
-
-///////////////////////////////////////
 // 팔로우 API
 app.post('/api/follow', async (req, res) => {
     const { userId, followId } = req.body;
@@ -159,8 +156,6 @@ app.get('/api/users/:id', async (req, res) => {
         res.status(500).send('Error fetching user info');
     }
 });
-//////////////////////////////
-
 
 app.listen(port, () => {
     console.log(`Server is running on http://localhost:${port}`);
