@@ -29,7 +29,7 @@ const SignupPage = () => {
         });
 
         try {
-            await axios.post('http://localhost:3000/api/register', formDataToSend, {
+            await axios.post('https://5822-14-50-224-247.ngrok-free.app/api/register', formDataToSend, {
                 headers: { 'Content-Type': 'multipart/form-data' },
             });
             alert('회원가입 성공!');

@@ -10,7 +10,7 @@ const UserDetailPage = ({ user }) => {
     useEffect(() => {
         const fetchUserInfo = async () => {
             try {
-                const response = await axios.get(`http://localhost:3000/api/users/${id}`);
+                const response = await axios.get(`https://5822-14-50-224-247.ngrok-free.app/api/users/${id}`);
                 setUserInfo(response.data);
             } catch (error) {
                 console.error('Error fetching user info:', error);
@@ -47,7 +47,7 @@ const UserDetailPage = ({ user }) => {
             {userInfo.profileImg && (
                 <div>
                     <strong>Profile Image:</strong>
-                    <img src={`http://localhost:3000/uploads/${userInfo.profileImg}`} alt="Profile" style={styles.image} />
+                    <img src={`https://5822-14-50-224-247.ngrok-free.app/uploads/${userInfo.profileImg}`} alt="Profile" style={styles.image} />
                 </div>
             )}
             {relationshipScore !== null && <p><strong>Relationship Score:</strong> {relationshipScore}</p>}

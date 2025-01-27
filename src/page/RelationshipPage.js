@@ -8,7 +8,7 @@ const RelationshipPage = ({ user }) => {
 
     const handleSearchUsers = async () => {
         try {
-            const response = await axios.get('http://localhost:3000/api/searchUsers', { params: { query: searchQuery } });
+            const response = await axios.get('https://5822-14-50-224-247.ngrok-free.app/api/searchUsers', { params: { query: searchQuery } });
             setSearchResults(response.data);
         } catch (error) {
             console.error('Error searching users:', error);

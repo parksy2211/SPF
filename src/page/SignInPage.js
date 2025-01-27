@@ -16,7 +16,7 @@ const LoginPage = ({ onLoginSuccess }) => {
         e.preventDefault();
 
         try {
-            const response = await axios.post('http://localhost:3000/api/login', formData);
+            const response = await axios.post('https://5822-14-50-224-247.ngrok-free.app/api/login', formData);
             alert('로그인 성공!');
             onLoginSuccess(response.data.data); // 로그인 성공 시 사용자 정보를 전달
         } catch (error) {

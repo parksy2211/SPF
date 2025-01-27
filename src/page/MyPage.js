@@ -13,7 +13,7 @@ const MyPage = ({ user }) => {
             {user.profileImg && (
                 <div>
                     <strong>Profile Image:</strong>
-                    <img src={`http://localhost:3000/uploads/${user.profileImg}`} alt="Profile" style={styles.image} />
+                    <img src={`https://5822-14-50-224-247.ngrok-free.app/${user.profileImg}`} alt="Profile" style={styles.image} />
                 </div>
             )}
             <Link to="/relationship">
